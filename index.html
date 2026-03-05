@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入字体（保留原有风格） -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&family=ZCOOL+KuaiLe&family=Noto+Serif+SC:wght@600&display=swap" rel="stylesheet">
+    <!-- 引入CSS -->
+    <link rel="stylesheet" href="./css/index.css">
+    <title>我的心情小账本</title>
+</head>
+<body>
+    <!-- 头部：登录/注册 + 标题 -->
+    <header class="header">
+        <div class="title-group">
+            <h1 class="big-title">我的心情小账本</h1>
+            <p class="small-title">--记录每一个情绪瞬间</p>
+        </div>
+        <div class="user-actions">
+            <button class="btn login-btn">登录</button>
+            <button class="btn register-btn">注册</button>
+            <span class="user-name" style="display: none;"></span>
+        </div>
+    </header>
+
+    <!-- 登录弹窗 -->
+    <div class="modal login-modal">
+        <div class="modal-content">
+            <h3>用户登录</h3>
+            <div class="form-item">
+                <label>用户名</label>
+                <input type="text" id="login-username" placeholder="请输入用户名">
+            </div>
+            <div class="form-item">
+                <label>密码</label>
+                <input type="password" id="login-password" placeholder="请输入密码">
+            </div>
+            <div class="btn-group">
+                <button class="btn close-btn login-close">关闭</button>
+                <button class="btn submit-btn login-submit">登录</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 注册弹窗 -->
+    <div class="modal register-modal">
+        <div class="modal-content">
+            <h3>用户注册</h3>
+            <div class="form-item">
+                <label>用户名</label>
+                <input type="text" id="reg-username" placeholder="请设置用户名">
+            </div>
+            <div class="form-item">
+                <label>密码</label>
+                <input type="password" id="reg-password" placeholder="请设置密码">
+            </div>
+            <div class="btn-group">
+                <button class="btn close-btn reg-close">关闭</button>
+                <button class="btn submit-btn reg-submit">注册</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <main class="content">
+        <!-- 左侧导航 -->
+        <aside class="left-aside">
+            <div class="nav-item today-record">今日记录</div>
+            <div class="nav-item past-record">历史记录</div>
+        </aside>
+
+        <!-- 中间核心区域 -->
+        <section class="middle-section">
+            <!-- 今日记录表单 -->
+            <div class="today-form">
+                <h3 class="form-title">记录下今日心情吧~</h3>
+                
+                <!-- 心情速选区 -->
+                <div class="mood-quick-select">
+                    <p class="section-title">心情速选区</p>
+                    <div class="mood-icons">
+                        <label class="mood-item">
+                            <img src="images/填充_心情开心_圆.png" alt="开心">
+                            <input type="radio" name="quick-mood" value="开心"> 开心
+                        </label>
+                        <label class="mood-item">
+                            <img src="images/心情一般-圆-填充.png" alt="平淡">
+                            <input type="radio" name="quick-mood" value="平淡"> 平淡
+                        </label>
+                        <label class="mood-item">
+                            <img src="images/填充_心情悲伤_圆.png" alt="伤心">
+                            <input type="radio" name="quick-mood" value="伤心"> 伤心
+                        </label>
+                        <label class="mood-item">
+                            <img src="images/烦躁.png" alt="烦躁">
+                            <input type="radio" name="quick-mood" value="烦躁"> 烦躁
+                        </label>
+                        <label class="mood-item">
+                            <img src="images/惊喜.png" alt="惊喜">
+                            <input type="radio" name="quick-mood" value="惊喜"> 惊喜
+                        </label>
+                        <label class="mood-item">
+                            <img src="images/平复烦躁-点击.png" alt="疲惫">
+                            <input type="radio" name="quick-mood" value="疲惫"> 疲惫
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 基础信息选择行（核心：同行显示） -->
+                <div class="base-info-row">
+                    <div class="form-group">
+                        <label>日期</label>
+                        <select id="date-select">
+                            <option value="">请选择日期</option>
+                            <option value="2026-01-26">2026-01-26</option>
+                            <option value="2026-01-27">2026-01-27</option>
+                            <option value="2026-01-28">2026-01-28</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>天气</label>
+                        <select id="weather-select">
+                            <option value="">请选择天气</option>
+                            <option value="晴天">晴天</option>
+                            <option value="多云">多云</option>
+                            <option value="雨天">雨天</option>
+                            <option value="阴天">阴天</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>详细心情</label>
+                        <select id="mood-detail-select">
+                            <option value="">请选择心情</option>
+                            <option value="微微开心">微微开心</option>
+                            <option value="超级开心">超级开心</option>
+                            <option value="有点难过">有点难过</option>
+                            <option value="非常难过">非常难过</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 富文本输入区（核心：支持图片插入） -->
+                <div class="content-editor">
+                    <label>心情内容</label>
+                    <!-- 用div代替textarea，支持图片显示 -->
+                    <div id="content-box" contenteditable="true" placeholder="说点什么吧..."></div>
+                </div>
+
+                <button id="save-btn" class="btn save-btn">保存记录</button>
+            </div>
+
+            <!-- 历史记录展示区（默认隐藏） -->
+            <div class="past-records" style="display: none;">
+                <h3 class="section-title">历史心情记录</h3>
+                <div id="records-list" class="records-list"></div>
+            </div>
+        </section>
+
+        <!-- 右侧素材区 -->
+        <aside class="right-aside">
+            <div class="warm-quote">
+                <p class="quote-title">今日温暖语录</p>
+                <p class="quote-content">都希望在最好的年华遇见一个人，可往往是遇见了一个人，才迎来最好的年华。做个温暖的人，不念过去，不畏将来。</p>
+            </div>
+            <div class="material-area">
+                <p class="material-title">手账素材（点击插入）</p>
+                <div class="material-icons">
+                    <img src="images/布偶猫.png" alt="布偶猫" class="material-img" data-src="images/布偶猫.png">
+                    <img src="images/柴犬.png" alt="柴犬" class="material-img" data-src="images/柴犬.png">
+                    <img src="images/风.png" alt="风" class="material-img" data-src="images/风.png">
+                    <img src="images/今日心情.png" alt="今日心情" class="material-img" data-src="images/今日心情.png">
+                    <img src="images/橘猫.png" alt="橘猫" class="material-img" data-src="images/橘猫.png">
+                    <img src="images/天气.png" alt="天气" class="material-img" data-src="images/天气.png">
+                    <img src="images/晚上.png" alt="晚上" class="material-img" data-src="images/晚上.png">
+                    <img src="images/小雨.png" alt="小雨" class="material-img" data-src="images/小雨.png">
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- 引入JS -->
+    <script src="./js/index.js"></script>
+</body>
+</html>
